@@ -30,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete myProxy;
+    delete dbModel;
 
     //Disconnessione dal db
     DBManager::disconnect();
