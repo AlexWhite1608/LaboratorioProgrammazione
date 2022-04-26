@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/Database"/>
+    <qresource prefix="/Icons">
+        <file>Icons/aggiungiProdotto_60.png</file>
+        <file>Icons/esporta_60.png</file>
+        <file>Icons/logo_60.png</file>
+        <file>Icons/logo_120.png</file>
+    </qresource>
+</RCC>
