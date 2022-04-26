@@ -15,5 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+
+    //Disconnessione dal db
+    DBManager::disconnect();
 }
 
