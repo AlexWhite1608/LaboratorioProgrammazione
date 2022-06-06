@@ -11,20 +11,18 @@ MainWindow::MainWindow(QWidget *parent)
     //Connessione al DB
     DBManager::connect();
 
-    //Setting header del proxy
-    myProxy->setHeaderData(1, Qt::Horizontal, "Prodotto");
-    myProxy->setHeaderData(2, Qt::Horizontal, "Categoria");
-    myProxy->setHeaderData(3, Qt::Horizontal, "Quantità");
-    myProxy->setHeaderData(4, Qt::Horizontal, "Prezzo");
-
     //Setting tableView
+    ui->tableView->setModel(dbModel);
+
+    //Query che mostra l'intero DB
+    QSqlQuery *initQuery = new QSqlQuery(DBManager::getDb());
+    initQuery->prepare("SELECT * FROM Players");
+    initQuery->exec();
+
+    //Imposta il modello per la TableView
+    MydbModel->setQuery(*initQuery);
     ui->tableView->setModel(myProxy);
-    ui->tableView->setEditTriggers(QAbstractItemView::DoubleClicked);
-    ui->tableView->hideColumn(0);
-    ui->tableView->resizeColumnToContents(1);
-    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->tableView->sortByColumn(1, Qt::SortOrder::AscendingOrder);
-    ui->tableView->resizeColumnToContents(1);
+
 }
 
 MainWindow::~MainWindow()

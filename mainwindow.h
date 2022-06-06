@@ -20,6 +20,6 @@ public:
 private:
     Ui::MainWindow *ui;
     CustomProxyModel *myProxy;
-    QSqlQueryModel *dbModel;
+    QSqlQueryModel *dbModel = new QSqlQueryModel();
 };
 #endif // MAINWINDOW_H

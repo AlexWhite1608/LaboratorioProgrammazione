@@ -16,6 +16,8 @@ public:
 
     static QString lastErrorDB();
 
+    static QSqlDatabase getDb();
+
 private:
     static QString dbName;
     static QSqlDatabase db;
