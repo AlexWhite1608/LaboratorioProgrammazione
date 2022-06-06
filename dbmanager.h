@@ -18,6 +18,8 @@ public:
 
     static QSqlDatabase getDb();
 
+    static QString getDbName();
+
 private:
     static QString dbName;
     static QSqlDatabase db;

@@ -11,17 +11,15 @@ MainWindow::MainWindow(QWidget *parent)
     //Connessione al DB
     DBManager::connect();
 
-    //Setting tableView
-    ui->tableView->setModel(dbModel);
-
     //Query che mostra l'intero DB
     QSqlQuery *initQuery = new QSqlQuery(DBManager::getDb());
     initQuery->prepare("SELECT * FROM Players");
-    initQuery->exec();
+    if(!initQuery->isValid())
+        qDebug() << "Errore nella query" << initQuery->lastError();
 
     //Imposta il modello per la TableView
-    MydbModel->setQuery(*initQuery);
-    ui->tableView->setModel(myProxy);
+    dbModel->setQuery(*initQuery);
+    ui->tableView->setModel(dbModel);
 
 }
 

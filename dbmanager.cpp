@@ -29,3 +29,13 @@ QString DBManager::lastErrorDB()
 {
     return DBManager::db.lastError().text();
 }
+
+QSqlDatabase DBManager::getDb()
+{
+    return db;
+}
+
+QString DBManager::getDbName()
+{
+    return dbName;
+}
