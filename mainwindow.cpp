@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "dbmanager.h"
+#include "aggiungiprodottodialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -46,3 +47,10 @@ MainWindow::~MainWindow()
     DBManager::disconnect();
 }
 
+/* Form per aggiungere un nuovo prodotto nella lista */
+void MainWindow::on_actionAggiungi_prodotto_triggered()
+{
+    AggiungiProdottoDialog mDialog(this);
+    mDialog.setModal(true);
+    mDialog.exec();
+}

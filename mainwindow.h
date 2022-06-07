@@ -17,6 +17,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_actionAggiungi_prodotto_triggered();
+
 private:
     Ui::MainWindow *ui;
     CustomProxyModel *myProxy;
