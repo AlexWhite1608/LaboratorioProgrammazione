@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/Database">
-        <file>LaboratorioProgrammazione.db</file>
+        <file>DatabaseSpesa.db</file>
     </qresource>
     <qresource prefix="/Icons">
         <file>Icons/aggiungiProdotto_60.png</file>

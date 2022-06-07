@@ -9,13 +9,18 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     //Connessione al DB
-    DBManager::connect();
+    //DBManager::connect();
+
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(QCoreApplication::applicationDirPath() + "/DatabaseSpesa.db");
+    if(!db.open())
+        qDebug() << "Errore apertura database: " << db.lastError();
 
     //Query che mostra l'intero DB
-    QSqlQuery *initQuery = new QSqlQuery(DBManager::getDb());
-    initQuery->prepare("SELECT * FROM Players");
-    if(!initQuery->isValid())
-        qDebug() << "Errore nella query" << initQuery->lastError();
+    QSqlQuery *initQuery = new QSqlQuery(db);
+    initQuery->prepare("SELECT * FROM Lista");
+    if(!initQuery->exec())
+        qDebug() << "Errore nella query: " << initQuery->lastError();
 
     //Imposta il modello per la TableView
     dbModel->setQuery(*initQuery);
