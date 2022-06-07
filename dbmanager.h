@@ -20,9 +20,10 @@ public:
 
     static QString getDbName();
 
+    static QSqlDatabase db;
+
 private:
     static QString dbName;
-    static QSqlDatabase db;
 };
 
 #endif // DBMANAGER_H
