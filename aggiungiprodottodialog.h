@@ -15,6 +15,9 @@ public:
     explicit AggiungiProdottoDialog(QWidget *parent = nullptr);
     ~AggiungiProdottoDialog();
 
+private slots:
+    void on_buttonBox_accepted();
+
 private:
     Ui::AggiungiProdottoDialog *ui;
 };

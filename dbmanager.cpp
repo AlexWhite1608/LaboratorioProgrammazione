@@ -1,6 +1,6 @@
 #include "dbmanager.h"
 
-QString DBManager::dbName = QCoreApplication::applicationDirPath() + "\LaboratorioProgrammazione.db";
+QString DBManager::dbName = QCoreApplication::applicationDirPath() + "\DatabaseSpesa.db";
 QSqlDatabase DBManager::db;
 
 bool DBManager::connect()
