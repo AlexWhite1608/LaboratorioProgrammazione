@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QDebug>
 #include <QFile>
+#include "readFile.h"
 
 namespace Ui {
 class RimuoviProdottoDialog;

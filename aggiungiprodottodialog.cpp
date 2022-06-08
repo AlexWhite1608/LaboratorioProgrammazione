@@ -1,6 +1,5 @@
 #include "aggiungiprodottodialog.h"
 #include "ui_aggiungiprodottodialog.h"
-#include "dbmanager.h"
 
 AggiungiProdottoDialog::AggiungiProdottoDialog(QWidget *parent) :
     QDialog(parent),
@@ -9,19 +8,8 @@ AggiungiProdottoDialog::AggiungiProdottoDialog(QWidget *parent) :
     ui->setupUi(this);
 
     //Setting ComboBox con categorie estratte da file .txt
-    QFile file("C:/Dev/Qt/LaboratorioProgrammazione/Settings/categorie.txt");
-    if(!file.open(QIODevice::ReadOnly)) {
-        qDebug() << "Errore apertura file" << file.errorString();
-    }
-
-    QTextStream categorie(&file);
-
-    while(!categorie.atEnd()) {
-        QString line = categorie.readLine();
-        ui->comboBoxCategoria->addItem(line);
-    }
-
-    file.close();
+    QStringList categorie = readFile("C:/Dev/Qt/LaboratorioProgrammazione/Settings/categorie.txt");
+    ui->comboBoxCategoria->addItems(categorie);
 }
 
 AggiungiProdottoDialog::~AggiungiProdottoDialog()

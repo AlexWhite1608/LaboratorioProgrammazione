@@ -2,6 +2,8 @@
 #define AGGIUNGIPRODOTTODIALOG_H
 
 #include <QDialog>
+#include "readFile.h"
+#include "dbmanager.h"
 
 namespace Ui {
 class AggiungiProdottoDialog;

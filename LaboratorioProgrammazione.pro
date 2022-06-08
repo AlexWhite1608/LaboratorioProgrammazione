@@ -21,6 +21,7 @@ SOURCES += \
     dbmanager.cpp \
     main.cpp \
     mainwindow.cpp \
+    readFile.cpp \
     rimuoviprodottodialog.cpp
 
 HEADERS += \
@@ -28,6 +29,7 @@ HEADERS += \
     customproxymodel.h \
     dbmanager.h \
     mainwindow.h \
+    readFile.h \
     rimuoviprodottodialog.h
 
 FORMS += \
