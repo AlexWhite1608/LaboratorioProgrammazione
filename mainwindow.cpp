@@ -1,7 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "dbmanager.h"
-#include "aggiungiprodottodialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -34,6 +32,7 @@ MainWindow::~MainWindow()
     DBManager::disconnect();
 }
 
+/* Ricarica il database per aggiornare la view */
 void MainWindow::loadDatabase()
 {
     //Connessione al DB
@@ -57,6 +56,16 @@ void MainWindow::loadDatabase()
 void MainWindow::on_actionAggiungi_prodotto_triggered()
 {
     AggiungiProdottoDialog mDialog(this);
+    mDialog.setModal(true);
+    mDialog.exec();
+
+    //Ricarica il database dopo la query
+    MainWindow::loadDatabase();
+}
+
+void MainWindow::on_actionRimuovi_prodotto_triggered()
+{
+    RimuoviProdottoDialog mDialog(this);
     mDialog.setModal(true);
     mDialog.exec();
 

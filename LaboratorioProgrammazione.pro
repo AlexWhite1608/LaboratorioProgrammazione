@@ -20,17 +20,20 @@ SOURCES += \
     customproxymodel.cpp \
     dbmanager.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    rimuoviprodottodialog.cpp
 
 HEADERS += \
     aggiungiprodottodialog.h \
     customproxymodel.h \
     dbmanager.h \
-    mainwindow.h
+    mainwindow.h \
+    rimuoviprodottodialog.h
 
 FORMS += \
     aggiungiprodottodialog.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    rimuoviprodottodialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QSqlQueryModel>
 #include "customproxymodel.h"
+#include "dbmanager.h"
+#include "aggiungiprodottodialog.h"
+#include "rimuoviprodottodialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,6 +23,8 @@ public:
 
 private slots:
     void on_actionAggiungi_prodotto_triggered();
+
+    void on_actionRimuovi_prodotto_triggered();
 
 private:
     Ui::MainWindow *ui;

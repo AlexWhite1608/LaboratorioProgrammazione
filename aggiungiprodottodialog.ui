@@ -87,68 +87,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QComboBox" name="comboBoxCategoria">
-     <item>
-      <property name="text">
-       <string>Pasta</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Uova, frutta e verdura</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Carne</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Pesce</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Salumi, latte e latticini</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Prodotti da forno</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Piatti pronti</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Bevande</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Drogheria</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Igiene</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Articoli vari e pulizia</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Non catalogato</string>
-      </property>
-     </item>
-    </widget>
+    <widget class="QComboBox" name="comboBoxCategoria"/>
    </item>
    <item row="3" column="0">
     <widget class="QLabel" name="label_4">

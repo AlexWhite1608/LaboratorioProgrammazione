@@ -9,4 +9,7 @@
         <file>Icons/logo_120.png</file>
         <file>Icons/delete_60.png</file>
     </qresource>
+    <qresource prefix="/Settings">
+        <file>Settings/categorie.txt</file>
+    </qresource>
 </RCC>
