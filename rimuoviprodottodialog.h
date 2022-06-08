@@ -2,6 +2,8 @@
 #define RIMUOVIPRODOTTODIALOG_H
 
 #include <QDialog>
+#include <QDebug>
+#include <QFile>
 
 namespace Ui {
 class RimuoviProdottoDialog;

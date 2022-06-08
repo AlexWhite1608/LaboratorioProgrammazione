@@ -18,7 +18,6 @@ AggiungiProdottoDialog::AggiungiProdottoDialog(QWidget *parent) :
 
     while(!categorie.atEnd()) {
         QString line = categorie.readLine();
-//        QStringList fields = line.split(";");
         ui->comboBoxCategoria->addItem(line);
     }
 
