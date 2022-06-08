@@ -17,20 +17,24 @@ AggiungiProdottoDialog::~AggiungiProdottoDialog()
 /* Realizza la query che aggiunge il prodotto nel database */
 void AggiungiProdottoDialog::on_buttonBox_accepted()
 {
-    DBManager::connect();
+
+    //DBManager::connect();
+
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(QCoreApplication::applicationDirPath() + "/DatabaseSpesa.db");
+    if(!db.open())
+        qDebug() << "Errore apertura database: " << db.lastError();
 
     QSqlQuery qry;
     qry.prepare("INSERT INTO Lista (Nome, Categoria, Quantità, Prezzo)"
-                "VALUES(?, ?, ?, ?)");
+                "VALUES(?, ?, ?, ?);");
 
     qry.addBindValue(ui->lineEditNome->text());
     qry.addBindValue(ui->comboBoxCategoria->currentText());
     qry.addBindValue(ui->spinBoxQuantita->value());
     qry.addBindValue(ui->doubleSpinBoxPrezzo->value());
+    qry.exec();
 
-    if(!qry.isValid())
-        qDebug() << "Errore esecuzione query aggiunta prodotto: " << qry.lastError();
-
-    DBManager::disconnect();
+    db.close();
 }
 
