@@ -11,21 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     //TODO: Implementare connessione al db con il DatabaseManager
 
-    //Connessione al DB
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(QCoreApplication::applicationDirPath() + "/DatabaseSpesa.db");
-    if(!db.open())
-        qDebug() << "Errore apertura database: " << db.lastError();
-
-    //Select che mostra intero database
-    QSqlQuery *initQuery = new QSqlQuery(db);
-    initQuery->prepare("SELECT * FROM Lista");
-    if(!initQuery->exec())
-        qDebug() << "Errore nella query: " << initQuery->lastError();
-
-    //Imposta il modello per la TableView
-    dbModel->setQuery(*initQuery);
-    ui->tableView->setModel(dbModel);
+    //Select iniziale per visualizzare il db
+    loadDatabase();
 
     //Proprietà TableView
     ui->tableView->hideColumn(0);
@@ -47,10 +34,32 @@ MainWindow::~MainWindow()
     DBManager::disconnect();
 }
 
+void MainWindow::loadDatabase()
+{
+    //Connessione al DB
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(QCoreApplication::applicationDirPath() + "/DatabaseSpesa.db");
+    if(!db.open())
+        qDebug() << "Errore apertura database: " << db.lastError();
+
+    //Select che mostra intero database
+    QSqlQuery *initQuery = new QSqlQuery(db);
+    initQuery->prepare("SELECT * FROM Lista");
+    if(!initQuery->exec())
+        qDebug() << "Errore nella query: " << initQuery->lastError();
+
+    //Imposta il modello per la TableView
+    dbModel->setQuery(*initQuery);
+    ui->tableView->setModel(dbModel);
+}
+
 /* Form per aggiungere un nuovo prodotto nella lista */
 void MainWindow::on_actionAggiungi_prodotto_triggered()
 {
     AggiungiProdottoDialog mDialog(this);
     mDialog.setModal(true);
     mDialog.exec();
+
+    //Ricarica il database dopo la query
+    MainWindow::loadDatabase();
 }

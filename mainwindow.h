@@ -16,6 +16,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void loadDatabase();
 
 private slots:
     void on_actionAggiungi_prodotto_triggered();

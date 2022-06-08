@@ -18,8 +18,6 @@ AggiungiProdottoDialog::~AggiungiProdottoDialog()
 void AggiungiProdottoDialog::on_buttonBox_accepted()
 {
 
-    //DBManager::connect();
-
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(QCoreApplication::applicationDirPath() + "/DatabaseSpesa.db");
     if(!db.open())
