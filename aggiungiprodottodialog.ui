@@ -58,7 +58,7 @@
       <double>0.010000000000000</double>
      </property>
      <property name="stepType">
-      <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+      <enum>QAbstractSpinBox::DefaultStepType</enum>
      </property>
     </widget>
    </item>

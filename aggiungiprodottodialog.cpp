@@ -22,7 +22,7 @@ void AggiungiProdottoDialog::on_buttonBox_accepted()
 {
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("C:/Dev/Qt/LaboratorioProgrammazione/DatabaseSpesa.db");
+    db.setDatabaseName(QCoreApplication::applicationDirPath() + "/DatabaseSpesa.db");
     if(!db.open())
         qDebug() << "Errore apertura database: " << db.lastError();
 

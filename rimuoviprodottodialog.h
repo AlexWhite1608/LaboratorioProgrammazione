@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QFile>
 #include "readFile.h"
+#include "dbmanager.h"
 
 namespace Ui {
 class RimuoviProdottoDialog;
@@ -17,6 +18,9 @@ class RimuoviProdottoDialog : public QDialog
 public:
     explicit RimuoviProdottoDialog(QWidget *parent = nullptr);
     ~RimuoviProdottoDialog();
+
+private slots:
+    void on_buttonBox_accepted();
 
 private:
     Ui::RimuoviProdottoDialog *ui;
