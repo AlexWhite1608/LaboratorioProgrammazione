@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "readFile.h"
 #include "dbmanager.h"
+#include <QMessageBox>
 
 namespace Ui {
 class AggiungiProdottoDialog;

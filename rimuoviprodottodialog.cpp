@@ -30,8 +30,13 @@ void RimuoviProdottoDialog::on_buttonBox_accepted()
     qry.addBindValue(ui->lineEdit->text());
     qry.addBindValue(ui->comboBox->currentText());
 
-    if(!qry.exec())
-        qDebug() << "Errore esecuzione query rimozione: " << qry.lastError();
+    if(!qry.exec()){
+        QMessageBox errorBox1;
+        errorBox1.setWindowTitle("Rimuovi prodotto");
+        errorBox1.setIcon(QMessageBox::Icon::Critical);
+        errorBox1.setText("Errore: non è stato possibile rimuovere il prodotto, verificare che i dati inseriti siano corretti!");
+        errorBox1.exec();
+    }
 
     myDB.close();
 }

@@ -34,7 +34,14 @@ void AggiungiProdottoDialog::on_buttonBox_accepted()
     qry.addBindValue(ui->comboBoxCategoria->currentText());
     qry.addBindValue(ui->spinBoxQuantita->value());
     qry.addBindValue(ui->doubleSpinBoxPrezzo->value());
-    qry.exec();
+
+    if(!qry.exec()){
+        QMessageBox errorBox1;
+        errorBox1.setWindowTitle("Aggiungi prodotto");
+        errorBox1.setIcon(QMessageBox::Icon::Critical);
+        errorBox1.setText("Errore: non è stato possibile inserire il prodotto, verificare che i dati inseriti siano corretti!");
+        errorBox1.exec();
+    }
 
     db.close();
 }
