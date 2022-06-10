@@ -75,6 +75,7 @@ void MainWindow::on_actionAggiungi_prodotto_triggered()
     MainWindow::loadDatabase();
 }
 
+/* Form per rimuovere un prodotto */
 void MainWindow::on_actionRimuovi_prodotto_triggered()
 {
     RimuoviProdottoDialog mDialog(this);
