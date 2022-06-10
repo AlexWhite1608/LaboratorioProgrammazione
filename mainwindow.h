@@ -28,7 +28,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    CustomProxyModel *myProxy;
+    CustomProxyModel *myProxy = new CustomProxyModel();
     QSqlQueryModel *dbModel = new QSqlQueryModel();
 };
 #endif // MAINWINDOW_H

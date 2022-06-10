@@ -27,9 +27,6 @@ MainWindow::~MainWindow()
     delete ui;
     delete myProxy;
     delete dbModel;
-
-    //Disconnessione dal db
-    DBManager::disconnect();
 }
 
 /* Ricarica il database per aggiornare la view */
@@ -49,7 +46,10 @@ void MainWindow::loadDatabase()
 
     //Imposta il modello per la TableView
     dbModel->setQuery(*initQuery);
-    ui->tableView->setModel(dbModel);
+    myProxy->setSourceModel(dbModel);
+    ui->tableView->setModel(myProxy);
+    ui->tableView->hideColumn(0);
+    ui->tableView->setColumnHidden(0, true);
 }
 
 /* Form per aggiungere un nuovo prodotto nella lista */
