@@ -9,10 +9,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     //TODO: Implementare connessione al db con il DatabaseManager
 
-    //Select iniziale per visualizzare il db
-    loadDatabase();
+    //Setting impostazioni proxy model
+    myProxy->setHeaderData(1, Qt::Horizontal, "Nome");
+    myProxy->setHeaderData(2, Qt::Horizontal, "Cateogoria");
+    myProxy->setHeaderData(3, Qt::Horizontal, "Quantità");
+    myProxy->setHeaderData(4, Qt::Horizontal, "Prezzo");
 
-    //Proprietà TableView
+
+    //Proprietà righe/colonne TableView
     ui->tableView->hideColumn(0);
     ui->tableView->setColumnHidden(0, true);
     ui->tableView->resizeColumnToContents(1);
@@ -20,6 +24,14 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView->sortByColumn(1, Qt::SortOrder::AscendingOrder);
     ui->tableView->resizeColumnToContents(1);
 
+    //Stylesheet
+    ui->tableView->setStyleSheet(
+                "QTableView::item:selected { background:#54698D; }"
+                "QHeaderView::section { color: white; background-color: #54698D; }"
+                );
+
+    //Select iniziale per visualizzare il db
+    loadDatabase();
 }
 
 MainWindow::~MainWindow()
@@ -49,7 +61,7 @@ void MainWindow::loadDatabase()
     myProxy->setSourceModel(dbModel);
     ui->tableView->setModel(myProxy);
     ui->tableView->hideColumn(0);
-    ui->tableView->setColumnHidden(0, true);
+    ui->tableView->verticalHeader()->setVisible(false);
 }
 
 /* Form per aggiungere un nuovo prodotto nella lista */
