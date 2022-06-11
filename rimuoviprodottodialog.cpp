@@ -1,7 +1,9 @@
 #include "rimuoviprodottodialog.h"
 #include "ui_rimuoviprodottodialog.h"
 
-RimuoviProdottoDialog::RimuoviProdottoDialog(QWidget *parent) :
+RimuoviProdottoDialog::RimuoviProdottoDialog(QSqlQueryModel *model, QSortFilterProxyModel *proxy, QWidget *parent) :
+    dbModelDelete(model),
+    proxyDelete(proxy),
     QDialog(parent),
     ui(new Ui::RimuoviProdottoDialog)
 {
@@ -9,6 +11,26 @@ RimuoviProdottoDialog::RimuoviProdottoDialog(QWidget *parent) :
 
     QStringList categorie = readFile("C:/Dev/Qt/LaboratorioProgrammazione/Settings/categorie.txt");
     ui->comboBox->addItems(categorie);
+
+    //Apertura DB
+    QSqlDatabase myDB = QSqlDatabase::addDatabase("QSQLITE");
+    myDB.setDatabaseName(QCoreApplication::applicationDirPath() + "/DatabaseSpesa.db");
+    myDB.open();
+
+    //Crea la query iniziale
+    QSqlQuery *initQuery = new QSqlQuery(myDB);
+    initQuery->prepare("SELECT * FROM Lista");
+    initQuery->exec();
+    dbModelDelete->setQuery(*initQuery);
+
+    //Impostazione del Completer
+    completerDelete = new QCompleter(dbModelDelete, this);
+    completerDelete->setCaseSensitivity(Qt::CaseInsensitive);
+    completerDelete->setCompletionColumn(1);
+    ui->lineEdit->setCompleter(completerDelete);
+
+    delete initQuery;
+
 }
 
 RimuoviProdottoDialog::~RimuoviProdottoDialog()
@@ -39,4 +61,11 @@ void RimuoviProdottoDialog::on_buttonBox_accepted()
     }
 
     myDB.close();
+}
+
+/* Ricerca il prodotto in base a cosa si scrive nella LineEdit */
+void RimuoviProdottoDialog::on_lineEdit_textChanged(const QString &arg1)
+{
+    proxyDelete->setFilterFixedString(arg1);
+    ui->lineEdit->completer()->complete();
 }

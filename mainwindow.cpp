@@ -45,6 +45,7 @@ MainWindow::~MainWindow()
     delete ui;
     delete myProxy;
     delete dbModel;
+    delete completer;
 }
 
 /* Ricarica il database per aggiornare la view */
@@ -84,7 +85,7 @@ void MainWindow::on_actionAggiungi_prodotto_triggered()
 /* Form per rimuovere un prodotto */
 void MainWindow::on_actionRimuovi_prodotto_triggered()
 {
-    RimuoviProdottoDialog mDialog(this);
+    RimuoviProdottoDialog mDialog(getDbModel(), getMyProxy(), this);
     mDialog.setModal(true);
     mDialog.exec();
 
@@ -106,4 +107,14 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
     if(index == 5)
         index = -1;
     myProxy->setFilterKeyColumn(index+1);
+}
+
+CustomProxyModel *MainWindow::getMyProxy() const
+{
+    return myProxy;
+}
+
+QSqlQueryModel *MainWindow::getDbModel() const
+{
+    return dbModel;
 }

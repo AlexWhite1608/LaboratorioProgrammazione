@@ -21,6 +21,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    QSqlQueryModel *getDbModel() const;
+
+    CustomProxyModel *getMyProxy() const;
+
 private:
     void loadDatabase();
 
