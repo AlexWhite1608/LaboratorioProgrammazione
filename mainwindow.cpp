@@ -30,6 +30,12 @@ MainWindow::MainWindow(QWidget *parent)
                 "QHeaderView::section { color: white; background-color: #54698D; }"
                 );
 
+    //Setting completer
+    completer = new QCompleter(dbModel, this);
+    completer->setCaseSensitivity(Qt::CaseInsensitive);
+    completer->setCompletionColumn(1);
+    ui->lineEditFilter->setCompleter(completer);
+
     //Select iniziale per visualizzare il db
     loadDatabase();
 }
@@ -84,4 +90,20 @@ void MainWindow::on_actionRimuovi_prodotto_triggered()
 
     //Ricarica il database dopo la query
     MainWindow::loadDatabase();
+}
+
+/* Filtra i prodotti in base alla ricerca */
+void MainWindow::on_lineEditFilter_textChanged(const QString &arg1)
+{
+    myProxy->setFilterFixedString(arg1);
+    ui->lineEditFilter->completer()->complete();
+    completer->setCompletionColumn(ui->comboBox->currentIndex() + 1);
+}
+
+/* Cambia il criterio di ricerca */
+void MainWindow::on_comboBox_currentIndexChanged(int index)
+{
+    if(index == 5)
+        index = -1;
+    myProxy->setFilterKeyColumn(index+1);
 }

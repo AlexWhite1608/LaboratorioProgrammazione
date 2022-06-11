@@ -7,6 +7,7 @@
 #include "dbmanager.h"
 #include "aggiungiprodottodialog.h"
 #include "rimuoviprodottodialog.h"
+#include <QCompleter>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,6 +20,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+private:
     void loadDatabase();
 
 private slots:
@@ -26,9 +29,14 @@ private slots:
 
     void on_actionRimuovi_prodotto_triggered();
 
+    void on_lineEditFilter_textChanged(const QString &arg1);
+
+    void on_comboBox_currentIndexChanged(int index);
+
 private:
     Ui::MainWindow *ui;
     CustomProxyModel *myProxy = new CustomProxyModel();
     QSqlQueryModel *dbModel = new QSqlQueryModel();
+    QCompleter *completer;
 };
 #endif // MAINWINDOW_H
