@@ -25,6 +25,7 @@ RimuoviProdottoDialog::RimuoviProdottoDialog(QSqlQueryModel *model, QSortFilterP
 
     //Impostazione del Completer
     completerDelete = new QCompleter(dbModelDelete, this);
+    completerDelete->setCompletionMode(QCompleter::InlineCompletion);
     completerDelete->setCaseSensitivity(Qt::CaseInsensitive);
     completerDelete->setCompletionColumn(1);
     ui->lineEdit->setCompleter(completerDelete);

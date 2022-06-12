@@ -3,8 +3,6 @@
 
 //TODO: Implementare connessione al db con il DatabaseManager
 
-//TODO: Rimuovere suggerimenti duplicati nella barra di ricerca
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
