@@ -36,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
     completer = new QCompleter(dbModel, this);
     completer->setCaseSensitivity(Qt::CaseInsensitive);
     completer->setCompletionColumn(1);
+    completer->setCompletionMode(QCompleter::InlineCompletion);
     ui->lineEditFilter->setCompleter(completer);
 
     //Select iniziale per visualizzare il db
