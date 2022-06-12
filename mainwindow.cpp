@@ -1,13 +1,15 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+//TODO: Implementare connessione al db con il DatabaseManager
+
+//TODO: Rimuovere suggerimenti duplicati nella barra di ricerca
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    //TODO: Implementare connessione al db con il DatabaseManager
 
     //Setting impostazioni proxy model
     myProxy->setHeaderData(1, Qt::Horizontal, "Nome");
@@ -104,7 +106,7 @@ void MainWindow::on_lineEditFilter_textChanged(const QString &arg1)
 /* Cambia il criterio di ricerca */
 void MainWindow::on_comboBox_currentIndexChanged(int index)
 {
-    if(index == 5)
+    if(index == 3)
         index = -1;
     myProxy->setFilterKeyColumn(index+1);
 }

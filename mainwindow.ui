@@ -77,16 +77,6 @@
         <string>Categoria</string>
        </property>
       </item>
-      <item>
-       <property name="text">
-        <string>Quantità</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Prezzo</string>
-       </property>
-      </item>
      </widget>
     </item>
    </layout>
