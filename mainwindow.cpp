@@ -9,6 +9,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    connect(ui->tableView, SIGNAL(customContextMenuRequested(QPoint)),
+            this, SLOT ( createContextMenu(QPoint) )
+            );
+
     //Setting impostazioni proxy model
     myProxy->setHeaderData(1, Qt::Horizontal, "Nome");
     myProxy->setHeaderData(2, Qt::Horizontal, "Cateogoria");
@@ -23,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView->sortByColumn(1, Qt::SortOrder::AscendingOrder);
     ui->tableView->resizeColumnToContents(1);
+    ui->tableView->setContextMenuPolicy(Qt::CustomContextMenu);
 
     //Stylesheet
     ui->tableView->setStyleSheet(
@@ -110,6 +115,21 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
     myProxy->setFilterKeyColumn(index+1);
 }
 
+/* Costruisce il contextMenu */
+void MainWindow::createContextMenu(const QPoint &pos)
+{
+    QMenu *menu = new QMenu(this);
+
+    menu->addAction(QString("Prova"), this, SLOT( prova() ));
+
+    menu->popup(ui->tableView->viewport()->mapToGlobal(pos));
+}
+
+void MainWindow::prova()
+{
+    qDebug() << "prova";
+}
+
 CustomProxyModel *MainWindow::getMyProxy() const
 {
     return myProxy;
@@ -119,3 +139,5 @@ QSqlQueryModel *MainWindow::getDbModel() const
 {
     return dbModel;
 }
+
+

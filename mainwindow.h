@@ -37,6 +37,10 @@ private slots:
 
     void on_comboBox_currentIndexChanged(int index);
 
+    void createContextMenu(const QPoint& pos);
+
+    void prova();
+
 private:
     Ui::MainWindow *ui;
     CustomProxyModel *myProxy = new CustomProxyModel();
