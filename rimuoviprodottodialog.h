@@ -18,7 +18,7 @@ class RimuoviProdottoDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit RimuoviProdottoDialog(QSqlQueryModel *model, QSortFilterProxyModel *proxy, QWidget *parent = nullptr);
+    explicit RimuoviProdottoDialog(QWidget *parent = nullptr);
     ~RimuoviProdottoDialog();
 
 private slots:
@@ -28,9 +28,9 @@ private slots:
 
 private:
     Ui::RimuoviProdottoDialog *ui;
-    QSqlQueryModel *dbModelDelete;
-    QSortFilterProxyModel *proxyDelete;
     QCompleter *completerDelete;
+    QSqlQueryModel *modelDelete = new QSqlQueryModel();
+    QSortFilterProxyModel *proxyDelete = new QSortFilterProxyModel();
 };
 
 #endif // RIMUOVIPRODOTTODIALOG_H

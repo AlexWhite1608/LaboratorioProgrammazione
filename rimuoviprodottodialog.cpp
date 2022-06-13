@@ -1,9 +1,7 @@
 #include "rimuoviprodottodialog.h"
 #include "ui_rimuoviprodottodialog.h"
 
-RimuoviProdottoDialog::RimuoviProdottoDialog(QSqlQueryModel *model, QSortFilterProxyModel *proxy, QWidget *parent) :
-    dbModelDelete(model),
-    proxyDelete(proxy),
+RimuoviProdottoDialog::RimuoviProdottoDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::RimuoviProdottoDialog)
 {
@@ -21,10 +19,10 @@ RimuoviProdottoDialog::RimuoviProdottoDialog(QSqlQueryModel *model, QSortFilterP
     QSqlQuery *initQuery = new QSqlQuery(myDB);
     initQuery->prepare("SELECT * FROM Lista");
     initQuery->exec();
-    dbModelDelete->setQuery(*initQuery);
+    modelDelete->setQuery(*initQuery);
 
     //Impostazione del Completer
-    completerDelete = new QCompleter(dbModelDelete, this);
+    completerDelete = new QCompleter(modelDelete, this);
     completerDelete->setCompletionMode(QCompleter::InlineCompletion);
     completerDelete->setCaseSensitivity(Qt::CaseInsensitive);
     completerDelete->setCompletionColumn(1);

@@ -86,7 +86,7 @@ void MainWindow::on_actionAggiungi_prodotto_triggered()
 /* Form per rimuovere un prodotto */
 void MainWindow::on_actionRimuovi_prodotto_triggered()
 {
-    RimuoviProdottoDialog mDialog(getDbModel(), getMyProxy(), this);
+    RimuoviProdottoDialog mDialog(this);
     mDialog.setModal(true);
     mDialog.exec();
 
