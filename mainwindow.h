@@ -39,7 +39,9 @@ private slots:
 
     void createContextMenu(const QPoint& pos);
 
-    void prova();
+    void addToCart();
+
+    void removeProduct();
 
 private:
     Ui::MainWindow *ui;

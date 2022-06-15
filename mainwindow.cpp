@@ -120,14 +120,22 @@ void MainWindow::createContextMenu(const QPoint &pos)
 {
     QMenu *menu = new QMenu(this);
 
-    menu->addAction(QString("Prova"), this, SLOT( prova() ));
+    menu->addAction(QString("Aggiungi al carrello"), this, SLOT( addToCart() ));
+    menu->addAction((QString("Rimuovi"), this, SLOT( removeProduct() ) ));
 
     menu->popup(ui->tableView->viewport()->mapToGlobal(pos));
 }
 
-void MainWindow::prova()
+/* Slot per aggiungere il prodotto nel carrello */
+void MainWindow::addToCart()
 {
-    qDebug() << "prova";
+
+}
+
+/* Slot per rimuovere prodotto direttamente da contextMenu */
+void MainWindow::removeProduct()
+{
+
 }
 
 CustomProxyModel *MainWindow::getMyProxy() const
