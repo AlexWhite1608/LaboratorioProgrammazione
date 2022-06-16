@@ -131,18 +131,38 @@ void MainWindow::createContextMenu(const QPoint &pos)
     menu->popup(ui->tableView->viewport()->mapToGlobal(pos));
 }
 
+/* Elimina il prodotto selezionato tramite contextMenu */
 void MainWindow::removeProduct(const QPoint &pos)
 {
-    qDebug() << "rimuovi prodotto: " << pos;
+    QModelIndex index = ui->tableView->indexAt(pos);
+
+    QSqlDatabase myDB = QSqlDatabase::addDatabase("QSQLITE");
+
+    myDB.setDatabaseName(QCoreApplication::applicationDirPath() + "/DatabaseSpesa.db");
+    myDB.open();
+
+    QSqlQuery *qry = new QSqlQuery(myDB);
+
+    qry->prepare("DELETE FROM Lista WHERE Id = ?");
+
+    qry->addBindValue(index.model()->data(index.model()->index(index.row(), 0), Qt::DisplayRole).toInt());  //Ricava ID
+
+    qry->exec();
+
+    myDB.close();
+
+    MainWindow::loadDatabase();
 }
 
+/* Sposta il prodotto selezionato dalla lista al carrello */
 void MainWindow::addToCart(const QPoint &pos)
 {
-    /*ui->tableView->setStyleSheet(
-                "QTableView::item:selected { color:	#7CFC00; }"
-                );*/
 
-    qDebug() << "aggiungi carrello: " << pos;
+   /* ui->tableView->setStyleSheet(
+                "QTableView::item:selected { background: #54698D; }"
+                "QTableView::item:focus { background: #32CD32; }"
+                "QHeaderView::section { color: white; background-color: #54698D; }"
+                );*/
 }
 
 CustomProxyModel *MainWindow::getMyProxy() const
