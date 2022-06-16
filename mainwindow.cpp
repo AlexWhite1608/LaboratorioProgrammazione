@@ -120,22 +120,29 @@ void MainWindow::createContextMenu(const QPoint &pos)
 {
     QMenu *menu = new QMenu(this);
 
-    menu->addAction(QString("Aggiungi al carrello"), this, SLOT( addToCart() ));
-    menu->addAction((QString("Rimuovi"), this, SLOT( removeProduct() ) ));
+    //Aggiunge azione addToCart tramite lambda
+    QAction *aggiungiAlCarrello = menu->addAction("Aggiungi al carrello");
+    connect(aggiungiAlCarrello, &QAction::triggered, this, [this, pos]{ addToCart(pos); });
+
+    //Aggiunge azione removeProduct tramite lambda
+    QAction *rimuoviProdotto = menu->addAction("Rimuovi prodotto");
+    connect(rimuoviProdotto, &QAction::triggered, this, [this, pos]{ removeProduct(pos); });
 
     menu->popup(ui->tableView->viewport()->mapToGlobal(pos));
 }
 
-/* Slot per aggiungere il prodotto nel carrello */
-void MainWindow::addToCart()
+void MainWindow::removeProduct(const QPoint &pos)
 {
-
+    qDebug() << "rimuovi prodotto: " << pos;
 }
 
-/* Slot per rimuovere prodotto direttamente da contextMenu */
-void MainWindow::removeProduct()
+void MainWindow::addToCart(const QPoint &pos)
 {
+    /*ui->tableView->setStyleSheet(
+                "QTableView::item:selected { color:	#7CFC00; }"
+                );*/
 
+    qDebug() << "aggiungi carrello: " << pos;
 }
 
 CustomProxyModel *MainWindow::getMyProxy() const
