@@ -20,6 +20,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+
     ~MainWindow();
 
     QSqlQueryModel *getDbModel() const;
@@ -44,10 +45,14 @@ private slots:
 
     void addToCart(const QPoint& pos);
 
+signals:
+    void requestAddCart(const QModelIndex pos);
+
 private:
     Ui::MainWindow *ui;
     CustomProxyModel *myProxy = new CustomProxyModel();
     QSqlQueryModel *dbModel = new QSqlQueryModel();
-    QCompleter *completer;
+    QCompleter *completer = nullptr;
+    ItemDelegatePaint *delegate = nullptr;
 };
 #endif // MAINWINDOW_H

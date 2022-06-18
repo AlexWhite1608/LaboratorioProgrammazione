@@ -9,16 +9,24 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    //Crezione del contextMenu
     connect(ui->tableView, SIGNAL(customContextMenuRequested(QPoint)),
             this, SLOT ( createContextMenu(QPoint) )
             );
+
+    //Setting delegate
+    delegate = new ItemDelegatePaint();
+    ui->tableView->setItemDelegate(delegate);
+
+    //Richiesta di aggiunta del prodotto al carrello
+    connect(this, SIGNAL( requestAddCart(QModelIndex) ),
+            delegate, SLOT( paintRow(QModelIndex) ));
 
     //Setting impostazioni proxy model
     myProxy->setHeaderData(1, Qt::Horizontal, "Nome");
     myProxy->setHeaderData(2, Qt::Horizontal, "Cateogoria");
     myProxy->setHeaderData(3, Qt::Horizontal, "Quantità");
     myProxy->setHeaderData(4, Qt::Horizontal, "Prezzo");
-
 
     //Proprietà righe/colonne TableView
     ui->tableView->hideColumn(0);
@@ -41,9 +49,6 @@ MainWindow::MainWindow(QWidget *parent)
     completer->setCompletionColumn(1);
     completer->setCompletionMode(QCompleter::InlineCompletion);
     ui->lineEditFilter->setCompleter(completer);
-
-    //Setting delegate
-    ui->tableView->setItemDelegate(new ItemDelegatePaint);
 
     //Select iniziale per visualizzare il db
     loadDatabase();
@@ -125,11 +130,13 @@ void MainWindow::createContextMenu(const QPoint &pos)
 
     //Aggiunge azione addToCart tramite lambda
     QAction *aggiungiAlCarrello = menu->addAction("Aggiungi al carrello");
-    connect(aggiungiAlCarrello, &QAction::triggered, this, [this, pos]{ addToCart(pos); });
+    connect(aggiungiAlCarrello, &QAction::triggered,
+            this, [this, pos]{ addToCart(pos); });
 
     //Aggiunge azione removeProduct tramite lambda
     QAction *rimuoviProdotto = menu->addAction("Rimuovi prodotto");
-    connect(rimuoviProdotto, &QAction::triggered, this, [this, pos]{ removeProduct(pos); });
+    connect(rimuoviProdotto, &QAction::triggered,
+            this, [this, pos]{ removeProduct(pos); });
 
     menu->popup(ui->tableView->viewport()->mapToGlobal(pos));
 }
@@ -169,11 +176,9 @@ void MainWindow::addToCart(const QPoint &pos)
     dbModel->setData(index, green, Qt::BackgroundRole);
     ui->tableView->selectRow(index.row());*/
 
-    ui->tableView->setStyleSheet(
-                "QTableView::item:selected { background:#54698D; }"
-                "QTableView { selection-background-color: green; }"
-                "QHeaderView::section { color: white; background-color: #54698D; }"
-                );
+    QModelIndex productIndex = ui->tableView->indexAt(pos);
+
+    emit requestAddCart(productIndex);
 
 }
 
