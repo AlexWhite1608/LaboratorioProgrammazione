@@ -42,6 +42,9 @@ MainWindow::MainWindow(QWidget *parent)
     completer->setCompletionMode(QCompleter::InlineCompletion);
     ui->lineEditFilter->setCompleter(completer);
 
+    //Setting delegate
+    ui->tableView->setItemDelegate(new ItemDelegatePaint);
+
     //Select iniziale per visualizzare il db
     loadDatabase();
 }
@@ -157,12 +160,21 @@ void MainWindow::removeProduct(const QPoint &pos)
 /* Sposta il prodotto selezionato dalla lista al carrello */
 void MainWindow::addToCart(const QPoint &pos)
 {
+    /*Ricava indice da coordinate del contextMenu
+    QModelIndex index = ui->tableView->indexAt(pos);
 
-   /* ui->tableView->setStyleSheet(
-                "QTableView::item:selected { background: #54698D; }"
-                "QTableView::item:focus { background: #32CD32; }"
+    QBrush green;
+    green.setColor(Qt::green);
+
+    dbModel->setData(index, green, Qt::BackgroundRole);
+    ui->tableView->selectRow(index.row());*/
+
+    ui->tableView->setStyleSheet(
+                "QTableView::item:selected { background:#54698D; }"
+                "QTableView { selection-background-color: green; }"
                 "QHeaderView::section { color: white; background-color: #54698D; }"
-                );*/
+                );
+
 }
 
 CustomProxyModel *MainWindow::getMyProxy() const

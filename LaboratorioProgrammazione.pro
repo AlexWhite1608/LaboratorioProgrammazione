@@ -19,6 +19,7 @@ SOURCES += \
     aggiungiprodottodialog.cpp \
     customproxymodel.cpp \
     dbmanager.cpp \
+    itemdelegatepaint.cpp \
     main.cpp \
     mainwindow.cpp \
     readFile.cpp \
@@ -28,6 +29,7 @@ HEADERS += \
     aggiungiprodottodialog.h \
     customproxymodel.h \
     dbmanager.h \
+    itemdelegatepaint.h \
     mainwindow.h \
     readFile.h \
     rimuoviprodottodialog.h

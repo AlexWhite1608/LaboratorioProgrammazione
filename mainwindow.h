@@ -7,6 +7,7 @@
 #include "dbmanager.h"
 #include "aggiungiprodottodialog.h"
 #include "rimuoviprodottodialog.h"
+#include "itemdelegatepaint.h"
 #include <QCompleter>
 
 QT_BEGIN_NAMESPACE

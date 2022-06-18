@@ -9,6 +9,7 @@ class CustomProxyModel : public QSortFilterProxyModel
 
 public:
     CustomProxyModel();
+
 };
 
 #endif // CUSTOMPROXYMODEL_H
