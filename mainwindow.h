@@ -52,7 +52,7 @@ private:
     Ui::MainWindow *ui;
     CustomProxyModel *myProxy = new CustomProxyModel();
     QSqlQueryModel *dbModel = new QSqlQueryModel();
-    QCompleter *completer;
+    QCompleter *completer = nullptr;
     ItemDelegatePaint *delegate = nullptr;
 };
 #endif // MAINWINDOW_H

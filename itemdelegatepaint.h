@@ -10,7 +10,7 @@ class ItemDelegatePaint : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
-    ItemDelegatePaint();
+    ItemDelegatePaint(QObject *parent = nullptr);
 
 public slots:
     void paintRow(const QModelIndex pos);

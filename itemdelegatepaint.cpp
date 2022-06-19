@@ -1,7 +1,7 @@
 #include "itemdelegatepaint.h"
 #include <QAbstractItemModel>
 
-ItemDelegatePaint::ItemDelegatePaint()
+ItemDelegatePaint::ItemDelegatePaint(QObject *parent)
 {
 }
 

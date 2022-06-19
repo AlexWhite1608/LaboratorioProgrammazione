@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
             );
 
     //Setting delegate
-    delegate = new ItemDelegatePaint();
+    delegate = new ItemDelegatePaint(this);
     ui->tableView->setItemDelegate(delegate);
 
     //Richiesta di aggiunta del prodotto al carrello
@@ -60,6 +60,7 @@ MainWindow::~MainWindow()
     delete myProxy;
     delete dbModel;
     delete completer;
+    delete delegate;
 }
 
 /* Ricarica il database per aggiornare la view */
