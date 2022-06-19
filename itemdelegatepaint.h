@@ -20,7 +20,7 @@ protected:
 
 private:
     bool paintRequest = false;
-    QModelIndex productIndex;
+    QVector<QModelIndex> indexVector;
 };
 
 #endif // ITEMDELEGATEPAINT_H

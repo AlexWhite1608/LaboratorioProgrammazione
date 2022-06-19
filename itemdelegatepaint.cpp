@@ -8,18 +8,20 @@ ItemDelegatePaint::ItemDelegatePaint(QObject *parent)
 /* Colora la riga selezionata */
 void ItemDelegatePaint::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    if(paintRequest &&
-       index.row() == productIndex.row() &&
-       index.column() == productIndex.column()) {
+    if(paintRequest && indexVector.contains(index)) {
+        foreach(QModelIndex i, indexVector){
+            painter->fillRect(option.rect, QColor(0,255,0));
 
-        painter->fillRect(option.rect, QColor(0,255,0)); //Colore verde
+            if( option.state & QStyle::State_Selected )
+            {
+                painter->fillRect(option.rect, option.palette.highlight());
+            }
 
-        if( option.state & QStyle::State_Selected ) //Per la selezione
-        {
-            painter->fillRect(option.rect, option.palette.highlight());
+            QStyledItemDelegate::paint(painter, option, i);
+
         }
 
-        QStyledItemDelegate::paint(painter, option, productIndex);
+        //manda segnale che imposta il paintRequest a false
     }
     else
     {
@@ -39,5 +41,5 @@ void ItemDelegatePaint::paint(QPainter *painter, const QStyleOptionViewItem &opt
 void ItemDelegatePaint::paintRow(const QModelIndex pos)
 {
     paintRequest = true;
-    productIndex = pos;
+    indexVector.append(pos);
 }
