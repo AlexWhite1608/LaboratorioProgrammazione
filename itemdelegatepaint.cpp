@@ -20,7 +20,7 @@ void ItemDelegatePaint::paint(QPainter *painter, const QStyleOptionViewItem &opt
                     painter->fillRect(option.rect, option.palette.highlight());
                 }
 
-                painter->drawText(option.rect, Qt::AlignCenter, i.data().toString());
+                //painter->drawText(option.rect, Qt::AlignCenter, i.data().toString());
                 QStyledItemDelegate::paint(painter, option, i);
 
                 //TODO: aggiornare il contatore di quanti elementi sono nel carrello (signal)
