@@ -2,6 +2,8 @@
 #include <QAbstractItemModel>
 #include <QApplication>
 
+//FIXME: Quando si aggiunge/toglie un prodotto dal database e vi è qualche cella colorata di verde, questa torna normale
+
 ItemDelegatePaint::ItemDelegatePaint(QObject *parent)
 {
 }
