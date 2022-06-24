@@ -11,8 +11,23 @@ void ItemDelegatePaint::paint(QPainter *painter, const QStyleOptionViewItem &opt
 {
 
     if(paintRequest && indexVector.contains(index)) {
-        foreach(QModelIndex i, indexVector){
-            if(index == i){
+        foreach(QModelIndex i, indexVector){    //Per poter colorare più righe
+            if(index == i){     //Garantisce che non si vada a sovrascrivere il prodotto
+
+                //Si controlla se la cella cliccata è la prima. In caso contrario non si colora di verde la cella
+                if(index.column() != 1){
+                    painter->fillRect(option.rect, QColor(223, 241, 255));
+
+                    if( option.state & QStyle::State_Selected )
+                    {
+                        painter->fillRect(option.rect, option.palette.highlight());
+                    }
+
+                    QStyledItemDelegate::paint(painter, option, index);
+
+                    break;
+                }
+
                 painter->fillRect(option.rect, QColor(0,255,0));
 
                 if( option.state & QStyle::State_Selected )
@@ -20,16 +35,15 @@ void ItemDelegatePaint::paint(QPainter *painter, const QStyleOptionViewItem &opt
                     painter->fillRect(option.rect, option.palette.highlight());
                 }
 
-                //painter->drawText(option.rect, Qt::AlignCenter, i.data().toString());
                 QStyledItemDelegate::paint(painter, option, i);
 
-                //TODO: aggiornare il contatore di quanti elementi sono nel carrello (signal)
+                //TODO: aggiornare il contatore di quanti elementi sono nel carrello (signal). Impostare paintRequest = false per rimozione dal carrello
 
             }
         }
     }
 
-    else
+    else    //Colorazione standard di tutte le righe
 
     {
         painter->fillRect(option.rect, QColor(223, 241, 255));

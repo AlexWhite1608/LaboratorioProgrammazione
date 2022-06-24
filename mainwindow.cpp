@@ -168,14 +168,6 @@ void MainWindow::removeProduct(const QPoint &pos)
 /* Sposta il prodotto selezionato dalla lista al carrello */
 void MainWindow::addToCart(const QPoint &pos)
 {
-    /*Ricava indice da coordinate del contextMenu
-    QModelIndex index = ui->tableView->indexAt(pos);
-
-    QBrush green;
-    green.setColor(Qt::green);
-
-    dbModel->setData(index, green, Qt::BackgroundRole);
-    ui->tableView->selectRow(index.row());*/
 
     QModelIndex productIndex = ui->tableView->indexAt(pos);
 
