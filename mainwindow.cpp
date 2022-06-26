@@ -190,17 +190,21 @@ void MainWindow::onRefreshRequested()
     //e imposta quindi la label di conseguenza
 
     QSqlDatabase myDB = QSqlDatabase::addDatabase("QSQLITE");
+    int count = 0;
 
     myDB.setDatabaseName(QCoreApplication::applicationDirPath() + "/DatabaseSpesa.db");
     myDB.open();
 
-    QSqlQuery qry;
+    QSqlQuery qry(myDB);
     qry.prepare("SELECT * FROM Carrello");
     qry.exec();
 
-    qDebug() << "Prodotti nel carrello: " << qry.size();
+    while(qry.next())
+        count++;
 
     myDB.close();
+
+    qDebug() << "Prodotti nel carrello: " << QString::number(count);
 }
 
 CustomProxyModel *MainWindow::getMyProxy() const

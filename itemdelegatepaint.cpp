@@ -77,10 +77,12 @@ void ItemDelegatePaint::addProductToCartDB(QModelIndex index)
 
     QSqlQuery *qry = new QSqlQuery(myDB);
 
-    qry->prepare("INSERT INTO Carrello(ID) "
+    qry->prepare("INSERT INTO Carrello (ID) "
                  "VALUES(?);");
 
     qry->addBindValue(index.model()->data(index.model()->index(index.row(), 0), Qt::DisplayRole).toInt());  //Ricava ID
+
+    //qDebug() << index.model()->data(index.model()->index(index.row(), 0), Qt::DisplayRole).toInt();
 
     qry->exec();
 
