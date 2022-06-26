@@ -32,12 +32,7 @@ void ItemDelegatePaint::paint(QPainter *painter, const QStyleOptionViewItem &opt
 
                 QStyledItemDelegate::paint(painter, option, i);
 
-                //TODO: aggiornare il contatore di quanti elementi sono nel carrello (signal). Impostare paintRequest = false per rimozione dal carrello
                 emit refreshCartLabel();
-
-                //TODO: aggiungere altre due tabelle nel db:
-                //      - una tiene conto degli elementi nel carrello
-                //      - una tiene conto degli indici (righe dato che colonne sono uguali) degli elementi che devono essere colorati
             }
         }
     }
@@ -81,8 +76,6 @@ void ItemDelegatePaint::addProductToCartDB(QModelIndex index)
                  "VALUES(?);");
 
     qry->addBindValue(index.model()->data(index.model()->index(index.row(), 0), Qt::DisplayRole).toInt());  //Ricava ID
-
-    //qDebug() << index.model()->data(index.model()->index(index.row(), 0), Qt::DisplayRole).toInt();
 
     qry->exec();
 

@@ -22,6 +22,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, SIGNAL( requestAddCartDelegate(QModelIndex) ),
             delegate, SLOT( paintRow(QModelIndex) ));
 
+    //Si richiama per impostare il valore attuale dei prodotti nel carrello
+    onRefreshRequested();
+
     //Setting label per numero prodotti nel carrello
     connect(delegate, SIGNAL( refreshCartLabel() ),
             this, SLOT( onRefreshRequested() ));
@@ -186,8 +189,7 @@ void MainWindow::addToCartDelegate(const QPoint &pos)
 /* Gestisce la label che indica quanti elementi ci sono nel carrello */
 void MainWindow::onRefreshRequested()
 {
-    //Conta quanti elementi sono presenti nella tabella dei prodotti nel carrello del db
-    //e imposta quindi la label di conseguenza
+    //FIXME: quando si elimina un prodotto dalla lista si deve modificare il counter!
 
     QSqlDatabase myDB = QSqlDatabase::addDatabase("QSQLITE");
     int count = 0;
@@ -204,7 +206,7 @@ void MainWindow::onRefreshRequested()
 
     myDB.close();
 
-    qDebug() << "Prodotti nel carrello: " << QString::number(count);
+    ui->labelCarrello->setText("Carrello: " + QString::number(count));
 }
 
 CustomProxyModel *MainWindow::getMyProxy() const
