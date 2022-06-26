@@ -43,10 +43,12 @@ private slots:
 
     void removeProduct(const QPoint& pos);
 
-    void addToCart(const QPoint& pos);
+    void addToCartDelegate(const QPoint& pos);
+
+    void onRefreshRequested();
 
 signals:
-    void requestAddCart(const QModelIndex pos);
+    void requestAddCartDelegate(const QModelIndex pos);
 
 private:
     Ui::MainWindow *ui;

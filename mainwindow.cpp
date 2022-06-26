@@ -19,8 +19,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView->setItemDelegate(delegate);
 
     //Richiesta di aggiunta del prodotto al carrello
-    connect(this, SIGNAL( requestAddCart(QModelIndex) ),
+    connect(this, SIGNAL( requestAddCartDelegate(QModelIndex) ),
             delegate, SLOT( paintRow(QModelIndex) ));
+
+    //Setting label per numero prodotti nel carrello
+    connect(delegate, SIGNAL( refreshCartLabel() ),
+            this, SLOT( onRefreshRequested() ));
 
     //Setting impostazioni proxy model
     myProxy->setHeaderData(1, Qt::Horizontal, "Nome");
@@ -135,7 +139,7 @@ void MainWindow::createContextMenu(const QPoint &pos)
     if(index.column() == 1){
         QAction *aggiungiAlCarrello = menu->addAction("Aggiungi al carrello");
         connect(aggiungiAlCarrello, &QAction::triggered,
-                this, [this, pos]{ addToCart(pos); });
+                this, [this, pos]{ addToCartDelegate(pos); });
     }
 
     //Aggiunge azione removeProduct tramite lambda
@@ -170,13 +174,33 @@ void MainWindow::removeProduct(const QPoint &pos)
 }
 
 /* Sposta il prodotto selezionato dalla lista al carrello */
-void MainWindow::addToCart(const QPoint &pos)
+void MainWindow::addToCartDelegate(const QPoint &pos)
 {
 
     QModelIndex productIndex = ui->tableView->indexAt(pos);
 
-    emit requestAddCart(productIndex);
+    emit requestAddCartDelegate(productIndex);
 
+}
+
+/* Gestisce la label che indica quanti elementi ci sono nel carrello */
+void MainWindow::onRefreshRequested()
+{
+    //Conta quanti elementi sono presenti nella tabella dei prodotti nel carrello del db
+    //e imposta quindi la label di conseguenza
+
+    QSqlDatabase myDB = QSqlDatabase::addDatabase("QSQLITE");
+
+    myDB.setDatabaseName(QCoreApplication::applicationDirPath() + "/DatabaseSpesa.db");
+    myDB.open();
+
+    QSqlQuery qry;
+    qry.prepare("SELECT * FROM Carrello");
+    qry.exec();
+
+    qDebug() << "Prodotti nel carrello: " << qry.size();
+
+    myDB.close();
 }
 
 CustomProxyModel *MainWindow::getMyProxy() const

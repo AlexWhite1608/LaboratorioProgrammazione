@@ -15,6 +15,14 @@ public:
 public slots:
     void paintRow(const QModelIndex pos);
 
+private slots:
+    void addProductToCartDB(QModelIndex index);
+
+signals:
+    void requestAddProductToCartDB(QModelIndex index) const;
+
+    void refreshCartLabel() const;
+
 protected:
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 
