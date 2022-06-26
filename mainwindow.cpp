@@ -127,12 +127,16 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
 /* Costruisce il contextMenu */
 void MainWindow::createContextMenu(const QPoint &pos)
 {
+    QModelIndex index = ui->tableView->indexAt(pos);
+
     QMenu *menu = new QMenu(this);
 
-    //Aggiunge azione addToCart tramite lambda
-    QAction *aggiungiAlCarrello = menu->addAction("Aggiungi al carrello");
-    connect(aggiungiAlCarrello, &QAction::triggered,
-            this, [this, pos]{ addToCart(pos); });
+    //Aggiunge azione addToCart tramite lambda solo se si clicca nella cella del nome del prodotto
+    if(index.column() == 1){
+        QAction *aggiungiAlCarrello = menu->addAction("Aggiungi al carrello");
+        connect(aggiungiAlCarrello, &QAction::triggered,
+                this, [this, pos]{ addToCart(pos); });
+    }
 
     //Aggiunge azione removeProduct tramite lambda
     QAction *rimuoviProdotto = menu->addAction("Rimuovi prodotto");

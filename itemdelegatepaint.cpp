@@ -16,20 +16,6 @@ void ItemDelegatePaint::paint(QPainter *painter, const QStyleOptionViewItem &opt
         foreach(QModelIndex i, indexVector){    //Per poter colorare più righe
             if(index == i){     //Garantisce che non si vada a sovrascrivere il prodotto
 
-                //Si controlla se la cella cliccata è la prima. In caso contrario non si colora di verde la cella
-                if(index.column() != 1){
-                    painter->fillRect(option.rect, QColor(223, 241, 255));
-
-                    if( option.state & QStyle::State_Selected )
-                    {
-                        painter->fillRect(option.rect, option.palette.highlight());
-                    }
-
-                    QStyledItemDelegate::paint(painter, option, index);
-
-                    break;
-                }
-
                 painter->fillRect(option.rect, QColor(0,255,0));
 
                 if( option.state & QStyle::State_Selected )
