@@ -138,17 +138,25 @@ void MainWindow::createContextMenu(const QPoint &pos)
 
     QMenu *menu = new QMenu(this);
 
-    //Aggiunge azione addToCart tramite lambda solo se si clicca nella cella del nome del prodotto
+    //Aggiunge azione addToCart tramite lambda
     if(index.column() == 1){
         QAction *aggiungiAlCarrello = menu->addAction("Aggiungi al carrello");
         connect(aggiungiAlCarrello, &QAction::triggered,
                 this, [this, pos]{ addToCartDelegate(pos); });
-    }
 
     //Aggiunge azione removeProduct tramite lambda
     QAction *rimuoviProdotto = menu->addAction("Rimuovi prodotto");
     connect(rimuoviProdotto, &QAction::triggered,
             this, [this, pos]{ removeProduct(pos); });
+
+
+    //TODO: L'azione appare soltanto se il prodotto è nel carrello!
+
+    //Aggiunge azione removeProductCart tramite lambda
+    QAction *rimuoviProdottoCarrello = menu->addAction("Rimuovi dal carrello");
+    connect(rimuoviProdottoCarrello, &QAction::triggered,
+            this, [this, pos]{ removeProductCart(pos); });
+    }
 
     menu->popup(ui->tableView->viewport()->mapToGlobal(pos));
 }
@@ -156,6 +164,8 @@ void MainWindow::createContextMenu(const QPoint &pos)
 /* Elimina il prodotto selezionato tramite contextMenu */
 void MainWindow::removeProduct(const QPoint &pos)
 {
+    //TODO: Quando si rimuove definitivamente il prodotto occorre rimuoverlo anche dal carrello!
+
     QModelIndex index = ui->tableView->indexAt(pos);
 
     QSqlDatabase myDB = QSqlDatabase::addDatabase("QSQLITE");
@@ -174,6 +184,40 @@ void MainWindow::removeProduct(const QPoint &pos)
     myDB.close();
 
     MainWindow::loadDatabase();
+}
+
+/* Rimozione del prodotto selezionato dal carrello andando ad aggiornare il DB */
+void MainWindow::removeProductCart(const QPoint &pos)
+{
+    QModelIndex index = ui->tableView->indexAt(pos);
+
+    QSqlDatabase myDB = QSqlDatabase::addDatabase("QSQLITE");
+
+    myDB.setDatabaseName(QCoreApplication::applicationDirPath() + "/DatabaseSpesa.db");
+    myDB.open();
+
+    //Controlla che il prodotto sia effettivamente nel carrello
+    QSqlQuery *checkQry = new QSqlQuery(myDB);
+
+    checkQry->prepare("SELECT FROM Carrello WHERE Id = ?");
+    checkQry->addBindValue(index.model()->data(index.model()->index(index.row(), 0), Qt::DisplayRole).toInt());  //Ricava ID
+
+    if(!checkQry->isValid()){
+        qDebug() << "Prodotto non è nel carrello!";
+        return;
+    }
+
+    QSqlQuery *qry = new QSqlQuery(myDB);
+
+    qry->prepare("DELETE FROM Carrello WHERE Id = ?");
+
+    qry->addBindValue(index.model()->data(index.model()->index(index.row(), 0), Qt::DisplayRole).toInt());  //Ricava ID
+
+    qry->exec();
+
+    myDB.close();
+
+    onRefreshRequested();
 }
 
 /* Sposta il prodotto selezionato dalla lista al carrello */

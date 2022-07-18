@@ -43,6 +43,8 @@ private slots:
 
     void removeProduct(const QPoint& pos);
 
+    void removeProductCart(const QPoint& pos);
+
     void addToCartDelegate(const QPoint& pos);
 
     void onRefreshRequested();

@@ -12,6 +12,7 @@ ItemDelegatePaint::ItemDelegatePaint(QObject *parent)
             this, SLOT( addProductToCartDB(QModelIndex) ));
 
     //Legge dalla tabella Carrello tutti i prodotti che sono nel carrello per poi colorare le righe corrispondenti
+
 }
 
 /* Colora la riga selezionata */
