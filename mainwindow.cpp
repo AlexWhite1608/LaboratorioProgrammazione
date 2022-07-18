@@ -176,12 +176,16 @@ void MainWindow::removeProduct(const QPoint &pos)
     QSqlQuery *qry = new QSqlQuery(myDB);
 
     qry->prepare("DELETE FROM Lista WHERE Id = ?");
-
     qry->addBindValue(index.model()->data(index.model()->index(index.row(), 0), Qt::DisplayRole).toInt());  //Ricava ID
+    qry->exec();
 
+    //Elimina il prodotto anche dal carrello
+    qry->prepare("DELETE FROM Carrello WHERE Id = ?");
+    qry->addBindValue(index.model()->data(index.model()->index(index.row(), 0), Qt::DisplayRole).toInt());  //Ricava ID
     qry->exec();
 
     myDB.close();
+    delete qry;
 
     MainWindow::loadDatabase();
 }
@@ -210,9 +214,7 @@ void MainWindow::removeProductCart(const QPoint &pos)
     QSqlQuery *qry = new QSqlQuery(myDB);
 
     qry->prepare("DELETE FROM Carrello WHERE Id = ?");
-
     qry->addBindValue(index.model()->data(index.model()->index(index.row(), 0), Qt::DisplayRole).toInt());  //Ricava ID
-
     qry->exec();
 
     myDB.close();
