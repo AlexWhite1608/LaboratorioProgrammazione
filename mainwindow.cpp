@@ -178,6 +178,7 @@ void MainWindow::removeProduct(const QPoint &pos)
     delete qry;
 
     MainWindow::loadDatabase();
+    onRefreshRequested();
 }
 
 /* Sposta il prodotto selezionato dalla lista al carrello */
